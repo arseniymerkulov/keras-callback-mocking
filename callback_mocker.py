@@ -65,7 +65,6 @@ class CallbackMocker:
             else:
                 arguments[key] = kwargs[i - len(args)]
 
-        arguments[callback_output_name] = callback_output
         local = {}
 
         exec(callback['callback_code'], arguments, local)
