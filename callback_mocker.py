@@ -72,7 +72,7 @@ class CallbackMocker:
         callback_output.append(local[callback_output_name])
 
 
-def callbackmock(callback_mocker: CallbackMocker, callback_output_name):
+def callbackmock(callback_mocker: CallbackMocker, callback_output_name, callback_output):
     def decorator(callback):
         def wrapper(*args, **kwargs):
             callback_mocker.add_callback_signature(callback.__name__,
@@ -80,7 +80,7 @@ def callbackmock(callback_mocker: CallbackMocker, callback_output_name):
                                                    kwargs,
                                                    inspect.getsource(callback),
                                                    callback_output_name)
-            callback(*args, **kwargs)
+            callback_output.append(callback(*args, **kwargs))
 
         return wrapper
 

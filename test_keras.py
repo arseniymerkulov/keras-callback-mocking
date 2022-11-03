@@ -4,7 +4,7 @@ from callback_mocker import CallbackMocker, callbackmock, callbackmocker
 
 callback_mocker = CallbackMocker()
 callback_output = []
-mode = REPLAY
+mode = RECORD
 
 
 class Model:
@@ -37,12 +37,12 @@ class Model:
         from tensorflow.keras.callbacks import Callback
 
         class FitCallback(Callback):
-            @callbackmock(callback_mocker, 'callback_output')
+            @callbackmock(callback_mocker, 'callback_output', callback_output)
             def on_train_end(self, logs=None):
                 print(logs)
                 return logs
 
-            @callbackmock(callback_mocker, 'callback_output')
+            @callbackmock(callback_mocker, 'callback_output', callback_output)
             def on_epoch_end(self, epoch, logs=None):
                 print(logs)
                 return logs
